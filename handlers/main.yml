@@ -1,5 +1,5 @@
 ---
-- name: "restart squid_exporter"
+- name: "restart hackmd"
   service:
-    name: "squid_exporter"
+    name: "hackmd"
     state: "restarted"

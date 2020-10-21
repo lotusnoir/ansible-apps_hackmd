@@ -1,29 +1,86 @@
 ---
-- name: "Check for squid_exporter binary"
+- name: "Check for hackmd install dir"
   stat:
-    path: "/usr/local/bin/squid_exporter"
+    path: "{{ hackmd_install_dir }}"
   changed_when: false
-  register: squid_exporter_install
+  register: hackmd_install
 
-- when: not squid_exporter_install.stat.exists
+- when: not hackmd_install.stat.exists
   block:
-    - name: "Download squid_exporter..."
+    - name: "install make"
+      package:
+        name: make
+
+    - name: "Download hackmd..."
       get_url:
-        url: '{{ squid_exporter_url }}'
-        dest: /usr/local/bin/
+        url: '{{ hackmd_url }}'
+        dest: /tmp/2.2.0.tar.gz
         timeout: 120
+        mode: 0644
+    
+    - name: "Ensure install directory exists"
+      file:
+        path: '{{ hackmd_install_dir }}'
+        state: directory
+        mode: 0755
+    
+    - name: "Unarchive hackmd..." 
+      unarchive:
+        src: /tmp/{{ hackmd_tgz }}
+        dest: '{{ hackmd_install_dir }}'
+        extra_opts: [--strip-components=1]
+        remote_src: true
         mode: 0755
 
-- name: "Create systemd for squid_exporter"
+#    - name: Configure proxy
+#      shell: npm config set proxy {{ http_proxy }}
+#      when: npm_proxy is defined
+    
+    - name: Set config user to 0
+      shell: npm config set user 0
+    
+    - name: Install npm packages (take a while)
+      npm:
+        path: "{{ hackmd_install_dir }}/bin/"
+    
+    - name: npm audit fix
+      shell: npm audit fix
+      args:
+        chdir: "{{ hackmd_install_dir }}"
+      retries: 32
+    
+    - name: npm update
+      shell: npm update
+      args:
+        chdir: "{{ hackmd_install_dir }}"
+    
+    - name: npm fund
+      shell: npm fund
+      args:
+        chdir: "{{ hackmd_install_dir }}"
+
+    - name: build (take a while)
+      shell: npm run build
+      args:
+        chdir: "{{ hackmd_install_dir }}"
+
+- name: "Create systemd for hackmd"
   template:
-    src: squid_exporter.service
+    src: hackmd.service
     dest: /etc/systemd/system/
     mode: '0644'
-  notify: "restart squid_exporter"
+  notify: "restart hackmd"
 
-- name: "Enable and Start squid_exporter.service"
+- name: "create env file"
+  template:
+    src: env.j2
+    dest: "{{ hackmd_install_dir }}/env"
+    mode: '0644'
+  notify: "restart hackmd"
+
+- name: "Enable and Start hackmd.service"
   systemd:
-    name: squid_exporter
+    name: hackmd
     state: started
     enabled: true
     daemon_reload: true

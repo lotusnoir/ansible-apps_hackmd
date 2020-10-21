@@ -1,0 +1,18 @@
+{{ ansible_managed | comment }}
+
+[Unit]
+Description=hackmd 
+After=network.target
+
+[Service]
+EnvironmentFile={{ hackmd_install_dir }}/env
+Type=simple
+ExecStart=/usr/bin/node {{ hackmd_install_dir }}/app.js
+Restart=on-failure
+ExecReload=/bin/kill -HUP $MAINPID
+SyslogIdentifier=hackmd
+RestartSec=1
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target
