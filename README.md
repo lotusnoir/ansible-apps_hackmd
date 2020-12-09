@@ -54,4 +54,4 @@ Deploy [hackmd](https://github.com/hackmdio/codimd) markdown web collaborative t
 
 ## License
 
-This project is licensed under MIT License. See [LICENSE](/LICENSE) for more details.
+This project is licensed under Apache License. See [LICENSE](/LICENSE) for more details.
