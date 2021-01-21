@@ -2,7 +2,17 @@
 
 ## Description
 
-[![Build Status](https://travis-ci.com/lotusnoir/ansible-apps_hackmd.svg?branch=master)](https://travis-ci.com/lotusnoir/ansible-apps_hackmd)[![License](https://img.shields.io/badge/license-MIT%20License-brightgreen.svg)](https://opensource.org/licenses/MIT)[![Ansible Role](https://img.shields.io/badge/ansible%20role-apps__hackmd-blue)](https://galaxy.ansible.com/lotusnoir/ansible-apps_hackmd/)[![GitHub tag](https://img.shields.io/badge/version-latest-blue)](https://github.com/lotusnoir/ansible-apps_hackmd/tags)
+[![Build Status](https://travis-ci.com/lotusnoir/ansible-apps_hackmd.svg?branch=master?style=flat)](https://travis-ci.com/lotusnoir/ansible-apps_hackmd)
+[![License](https://img.shields.io/badge/license-Apache--2.0-brightgreen?style=flat)](https://opensource.org/licenses/Apache-2.0)
+[![Ansible Role](https://img.shields.io/badge/galaxy-apps_hackmd-purple?style=flat)](https://galaxy.ansible.com/lotusnoir/apps_hackmd)
+![GitHub repo size](https://img.shields.io/github/repo-size/lotusnoir/ansible-apps_hackmd?color=orange&style=flat)
+![Ansible Quality Score](https://img.shields.io/ansible/quality/52300)
+[![downloads](https://img.shields.io/ansible/role/d/52300)](https://galaxy.ansible.com/lotusnoir/apps_hackmd)
+[![Version](https://img.shields.io/github/release/lotusnoir/ansible-apps_hackmd.svg)](https://github.com/lotusnoir/ansible-apps_hackmd/releases/)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_hackmd&metric=alert_status)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_hackmd)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_hackmd&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_hackmd)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_hackmd&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_hackmd)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=lotusnoir_ansible-apps_hackmd&metric=security_rating)](https://sonarcloud.io/dashboard?id=lotusnoir_ansible-apps_hackmd)
 
 Deploy [hackmd](https://github.com/hackmdio/codimd) markdown web collaborative tool.
 
