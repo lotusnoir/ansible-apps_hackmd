@@ -1,7 +1,7 @@
 ---
-hackmd_version:   "2.2.0"
-hackmd_tgz:       "{{ hackmd_version }}.tar.gz"
-hackmd_url:       "https://github.com/hackmdio/codimd/archive/{{ hackmd_tgz }}"
+hackmd_version: "2.2.0"
+hackmd_tgz: "{{ hackmd_version }}.tar.gz"
+hackmd_url: "https://github.com/hackmdio/codimd/archive/{{ hackmd_tgz }}"
 hackmd_install_dir: /opt/hackmd
 
 ### DATABASE
@@ -21,10 +21,10 @@ hackmd_pdf_export: "true"
 hackmd_email: "false"
 hackmd_allow_email_register: "false"
 # Ldap
-hackmd_ldap_url: ldap://example.net:389 
+hackmd_ldap_url: ldap://example.net:389
 hackmd_ldap_binddn: uid=test,dc=example, dc=net
 hackmd_ldap_bindpass: ""
-hackmd_ldap_search: "" 
+hackmd_ldap_search: ""
 hackmd_ldap_search_filter: "(uid={{ '{{' }}username{{ '}}' }})"
 # Oauth2
 hackmd_oauth_clientid: hackmd
@@ -35,4 +35,4 @@ hackmd_oauth_url_user: ""
 hackmd_oauth_url_base: ""
 hackmd_oauth_user_name: name
 hackmd_oauth_user_display: cn
-hackmd_oauth_user_mail: mail 
+hackmd_oauth_user_mail: mail
