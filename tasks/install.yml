@@ -7,9 +7,9 @@
 
 - when: not hackmd_install.stat.exists
   block:
-    - name: "install make"
+    - name: "Install requirements"
       package:
-        name: make
+        name: [make, git, bzip2]
         state: present
 
     - name: "Install requierements"
@@ -43,30 +43,30 @@
     #  when: npm_proxy is defined
 
     - name: Set config user to 0
-      shell: npm config set user 0
+      command: npm config set user 0
 
     - name: Install npm packages (take a while)
       npm:
         path: "{{ hackmd_install_dir }}/bin/"
 
     - name: npm audit fix
-      shell: npm audit fix
+      command: npm audit fix
       args:
         chdir: "{{ hackmd_install_dir }}"
       retries: 32
 
     - name: npm update
-      shell: npm update
+      command: npm update
       args:
         chdir: "{{ hackmd_install_dir }}"
 
     - name: npm fund
-      shell: npm fund
+      command: npm fund
       args:
         chdir: "{{ hackmd_install_dir }}"
 
     - name: build (take a while)
-      shell: npm run build
+      command: npm run build
       args:
         chdir: "{{ hackmd_install_dir }}"
 

@@ -1,20 +1,27 @@
 ---
 galaxy_info:
-  author: "Philippe leal"
-  description: "Install and configure hackmd / codimd"
+  author: lotusnoir
   role_name: apps_hackmd
-  license: "license: Apache License, Version 2.0"
+  description: "Deploy [hackmd](https://github.com/hackmdio/codimd) markdown web collaborative tool."
+  license: "Apache License, Version 2.0"
   min_ansible_version: 2.8
 
   platforms:
     - name: "Ubuntu"
       versions:
-        - "xenial"
+        - "focal"
         - "bionic"
     - name: "Debian"
       versions:
+        - "bullseye"
         - "buster"
-        - "stretch"
+    - name: "RedHat"
+      versions:
+        - "Maipo"
+    - name: "CentOS"
+      versions:
+        - "8"
+        - "7"
 
   galaxy_tags:
     - hackmd
