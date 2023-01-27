@@ -1,37 +1,38 @@
 ---
 - name: "Check for hackmd install dir"
-  stat:
+  ansible.builtin.stat:
     path: "{{ hackmd_install_dir }}"
   changed_when: false
   register: hackmd_install
 
-- when: not hackmd_install.stat.exists
+- name: "Install tasks"
+  when: not hackmd_install.stat.exists
   block:
     - name: "Install requirements"
-      package:
+      pansible.builtin.ackage:
         name: [make, git, bzip2]
         state: present
 
     - name: "Install requierements"
-      package:
-        name: "ca-certificates"
+      ansible.builtin.package:
+        name: ["ca-certificates", "unzip", "tar"]
         state: present
 
     - name: "Download hackmd..."
-      get_url:
+      ansible.builtin.get_url:
         url: '{{ hackmd_url }}'
         dest: /tmp/2.2.0.tar.gz
         timeout: 120
         mode: 0644
 
     - name: "Ensure install directory exists"
-      file:
+      ansible.builtin.file:
         path: '{{ hackmd_install_dir }}'
         state: directory
         mode: 0755
 
     - name: "Unarchive hackmd..."
-      unarchive:
+      ansible.builtin.unarchive:
         src: /tmp/{{ hackmd_tgz }}
         dest: '{{ hackmd_install_dir }}'
         extra_opts: [--strip-components=1]
@@ -43,49 +44,54 @@
     #  when: npm_proxy is defined
 
     - name: Set config user to 0
-      command: npm config set user 0
+      ansible.builtin.command: npm config set user 0
+      changed_when: false
 
     - name: Install npm packages (take a while)
       npm:
         path: "{{ hackmd_install_dir }}/bin/"
 
     - name: npm audit fix
-      command: npm audit fix
+      ansible.builtin.command: npm audit fix
       args:
         chdir: "{{ hackmd_install_dir }}"
       retries: 32
+      changed_when: false
 
     - name: npm update
-      command: npm update
+      ansible.builtin.command: npm update
       args:
         chdir: "{{ hackmd_install_dir }}"
+      changed_when: false
 
     - name: npm fund
-      command: npm fund
+      ansible.builtin.command: npm fund
       args:
         chdir: "{{ hackmd_install_dir }}"
+      changed_when: false
 
     - name: build (take a while)
-      command: npm run build
+      ansible.builtin.command: npm run build
       args:
         chdir: "{{ hackmd_install_dir }}"
+      changed_when: false
 
 - name: "Create systemd for hackmd"
-  template:
+  ansible.builtin.template:
     src: hackmd.service
     dest: /etc/systemd/system/
     mode: '0644'
   notify: "restart hackmd"
 
 - name: "create env file"
-  template:
+  ansible.builtin.template:
     src: env.j2
     dest: "{{ hackmd_install_dir }}/env"
     mode: '0644'
   notify: "restart hackmd"
 
 - name: "Enable and Start hackmd.service"
-  service:
+  ansible.builtin.service:
     name: hackmd
     state: started
     enabled: true
