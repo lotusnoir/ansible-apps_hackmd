@@ -9,7 +9,7 @@
   when: not hackmd_install.stat.exists
   block:
     - name: "Install requirements"
-      pansible.builtin.ackage:
+      ansible.builtin.package:
         name: [make, git, bzip2]
         state: present
 
@@ -48,29 +48,29 @@
       changed_when: false
 
     - name: Install npm packages (take a while)
-      npm:
+      community.general.npm:
         path: "{{ hackmd_install_dir }}/bin/"
 
-    - name: npm audit fix
+    - name: NPM audit fix
       ansible.builtin.command: npm audit fix
       args:
         chdir: "{{ hackmd_install_dir }}"
       retries: 32
       changed_when: false
 
-    - name: npm update
+    - name: NPM update
       ansible.builtin.command: npm update
       args:
         chdir: "{{ hackmd_install_dir }}"
       changed_when: false
 
-    - name: npm fund
+    - name: NPM fund
       ansible.builtin.command: npm fund
       args:
         chdir: "{{ hackmd_install_dir }}"
       changed_when: false
 
-    - name: build (take a while)
+    - name: Build (take a while)
       ansible.builtin.command: npm run build
       args:
         chdir: "{{ hackmd_install_dir }}"
@@ -81,14 +81,14 @@
     src: hackmd.service
     dest: /etc/systemd/system/
     mode: '0644'
-  notify: "restart hackmd"
+  notify: "rRestart hackmd"
 
-- name: "create env file"
+- name: "Create env file"
   ansible.builtin.template:
     src: env.j2
     dest: "{{ hackmd_install_dir }}/env"
     mode: '0644'
-  notify: "restart hackmd"
+  notify: "Restart hackmd"
 
 - name: "Enable and Start hackmd.service"
   ansible.builtin.service:

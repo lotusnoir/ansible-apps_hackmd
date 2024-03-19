@@ -1,5 +1,5 @@
 ---
-- name: "restart hackmd"
+- name: "Restart hackmd"
   ansible.builtin.service:
     name: "hackmd"
     state: "restarted"
