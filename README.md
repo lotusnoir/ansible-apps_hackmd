@@ -24,7 +24,7 @@
 Deploy [hackmd](https://github.com/hackmdio/codimd) markdown web collaborative tool.
 ## Requirements
 
-none
+You need to install nodejs - geerlingguy.nodejs
 
 ## Role variables
 
