@@ -12,24 +12,32 @@
       ansible.builtin.package:
         name: [make, git, bzip2]
         state: present
+      register: pkg_result
+      retries: 12
+      delay: 10
+      until: pkg_result is success
 
     - name: "Install requierements"
       ansible.builtin.package:
         name: ["ca-certificates", "unzip", "tar"]
         state: present
+      register: pkg_result
+      retries: 12
+      delay: 10
+      until: pkg_result is success
 
     - name: "Download hackmd..."
       ansible.builtin.get_url:
         url: '{{ hackmd_url }}'
         dest: /tmp/2.2.0.tar.gz
         timeout: 120
-        mode: 0644
+        mode: '0644'
 
     - name: "Ensure install directory exists"
       ansible.builtin.file:
         path: '{{ hackmd_install_dir }}'
         state: directory
-        mode: 0755
+        mode: '0755'
 
     - name: "Unarchive hackmd..."
       ansible.builtin.unarchive:
@@ -37,7 +45,7 @@
         dest: '{{ hackmd_install_dir }}'
         extra_opts: [--strip-components=1]
         remote_src: true
-        mode: 0755
+        mode: '0755'
 
     #- name: Configure proxy
     #  shell: npm config set proxy {{ http_proxy }}
