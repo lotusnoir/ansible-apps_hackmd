@@ -22,9 +22,10 @@
 ## Description
 
 Deploy [hackmd](https://github.com/hackmdio/codimd) markdown web collaborative tool.
+
 ## Requirements
 
-You need to install nodejs - geerlingguy.nodejs
+['geerlingguy.nodejs']
 
 ## Role variables
 
@@ -39,7 +40,6 @@ See [variables](/defaults/main.yml) for more details.
           gather_facts: true
           roles:
             - role: ansible-apps_hackmd
-
 
 ## License
 

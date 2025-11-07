@@ -12,19 +12,19 @@
       ansible.builtin.package:
         name: [make, git, bzip2]
         state: present
-      register: pkg_result
+      register: __pkg_result
       retries: 12
       delay: 10
-      until: pkg_result is success
+      until: __pkg_result is success
 
     - name: "Install requierements"
       ansible.builtin.package:
         name: ["ca-certificates", "unzip", "tar"]
         state: present
-      register: pkg_result
+      register: __pkg_result
       retries: 12
       delay: 10
-      until: pkg_result is success
+      until: __pkg_result is success
 
     - name: "Download hackmd..."
       ansible.builtin.get_url:
@@ -47,9 +47,9 @@
         remote_src: true
         mode: '0755'
 
-    #- name: Configure proxy
-    #  shell: npm config set proxy {{ http_proxy }}
-    #  when: npm_proxy is defined
+    # - name: Configure proxy
+    #   shell: npm config set proxy {{ http_proxy }}
+    #   when: npm_proxy is defined
 
     - name: Set config user to 0
       ansible.builtin.command: npm config set user 0
